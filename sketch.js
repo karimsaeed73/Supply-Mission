@@ -1,5 +1,5 @@
 var helicopterIMG, helicopterSprite, packageSprite,packageIMG;
-var packageBody,ground
+var packageBody,ground, left, right , bottom;
 const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
@@ -16,7 +16,7 @@ function setup() {
 	rectMode(CENTER);
 	
 
-	packageSprite=createSprite(width/2, 80, 10,10);
+	packageSprite=createSprite(width/2, 200, 10,10);
 	packageSprite.addImage(packageIMG)
 	packageSprite.scale=0.2
 
@@ -41,6 +41,14 @@ function setup() {
 	ground = Bodies.rectangle(width/2, 650, width, 10 , {isStatic:true} );
  	World.add(world, ground);
 
+	 bottom = Bodies.rectangle(width/2, 640, 200, 20, {isStatic:true} );
+	 World.add(world, bottom);
+
+	 left = Bodies.rectangle(width/2-100, 610, 20, 50, {isStatic:true} );
+	 World.add(world, left);
+	 
+	 right = Bodies.rectangle(width/2+100, 610, 20, 50, {isStatic:true} );
+	 World.add(world, right);
 
 	Engine.run(engine);
   
@@ -50,18 +58,24 @@ function setup() {
 function draw() {
   rectMode(CENTER);
   background(0);
-  packageSprite.x= packageBody.position.x 
-  packageSprite.y= packageBody.position.y 
+  packageSprite.x = packageBody.position.x; 
+  packageSprite.y = packageBody.position.y;
   drawSprites();
- 
+ fill ("red");
+ rect (bottom.position.x , bottom.position.y, 200 , 20);
+ rect (left.position.x , left.position.y, 20, 50);
+ rect (right.position.x , right.position.y, 20, 50);
 }
 
 function keyPressed() {
  if (keyCode === DOWN_ARROW) {
     // Look at the hints in the document and understand how to make the package body fall only on press of the Down arrow key.
- Matter.Body.setStatic(packageBody,false)
+ Matter.Body.setStatic(packageBody,false);
  
-    
+
+
+
+
   }
 }
 
